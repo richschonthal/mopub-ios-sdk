@@ -573,7 +573,7 @@ static char kAdPlacerKey;
     return indexPaths;
 }
 
-- (UITableViewCell *)mp_cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (nullable UITableViewCell *)mp_cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MPTableViewAdPlacer *adPlacer = [self mp_adPlacer];
     NSIndexPath *adjustedIndexPath = indexPath;
@@ -593,7 +593,10 @@ static char kAdPlacerKey;
         NSArray *indexPaths = [self mp_indexPathsForVisibleRows];
         NSMutableArray *visibleCells = [NSMutableArray array];
         for (NSIndexPath *indexPath in indexPaths) {
-            [visibleCells addObject:[self mp_cellForRowAtIndexPath:indexPath]];
+			UITableViewCell *cell = [self mp_cellForRowAtIndexPath:indexPath];
+			if (cell) {
+				[visibleCells addObject:cell];
+			}
         }
         return visibleCells;
     } else {
